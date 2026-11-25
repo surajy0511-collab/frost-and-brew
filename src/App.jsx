@@ -2,6 +2,8 @@ import { useEffect, useMemo, useState } from 'react'
 import { menuCategories } from './menuData'
 import { getWhatsAppUrl, siteConfig } from './siteConfig'
 
+const imageUrl = (path) => `${import.meta.env.BASE_URL}${path.replace(/^\/+/, '')}`
+
 const photos = [
   { src: '/images/cafe-interior.jpg', alt: 'Warm wooden tables and botanical mural inside Frost & Brew', caption: 'A seat in the sunshine' },
   { src: '/images/signature-dessert.jpg', alt: 'Frost & Brew branded coffee with dessert and a savoury bake', caption: 'A little something sweet' },
@@ -13,7 +15,7 @@ const photos = [
 function BrandMark({ compact = false }) {
   return (
     <a className={`brand ${compact ? 'brand-compact' : ''}`} href="#home" aria-label="Frost & Brew, home">
-      <img className="brand-photo" src="/images/frost-brew-mark.jpg" alt="Frost & Brew Café logo" />
+      <img className="brand-photo" src={imageUrl('/images/frost-brew-mark.jpg')} alt="Frost & Brew Café logo" />
       <span className="brand-name">
         <strong>Frost <i>&amp;</i> Brew</strong>
         <small>CAFÉ · ICE CREAM · DESSERTS</small>
@@ -131,7 +133,7 @@ function Hero() {
         </div>
       </div>
       <div className="hero-visual">
-        <img className="hero-image" src="/images/cafe-interior.jpg" alt="The warmly lit Frost & Brew café, with timber tables and leafy walls" fetchPriority="high" />
+        <img className="hero-image" src={imageUrl('/images/cafe-interior.jpg')} alt="The warmly lit Frost & Brew café, with timber tables and leafy walls" fetchPriority="high" />
         <div className="hero-image-caption">
           <span>FROST &amp; BREW, BENGALURU</span>
           <span>Come in, stay awhile <i aria-hidden="true">↗</i></span>
@@ -146,7 +148,7 @@ function Story() {
   return (
     <section className="story section-pad" id="story">
       <div className="story-image-wrap reveal">
-        <img src="/images/cafe-interior-seating.jpg" alt="The café's wooden tables, comfortable seats and warm pendant lights" loading="lazy" />
+        <img src={imageUrl('/images/cafe-interior-seating.jpg')} alt="The café's wooden tables, comfortable seats and warm pendant lights" loading="lazy" />
         <span className="image-note">A little place to linger</span>
       </div>
       <div className="story-copy reveal">
@@ -422,7 +424,7 @@ function SignaturePicks() {
         {picks.map((pick) => (
           <article className="signature-card reveal" key={pick.title}>
             <div className="signature-photo">
-              <img src={pick.photo} alt={pick.alt} loading="lazy" />
+              <img src={imageUrl(pick.photo)} alt={pick.alt} loading="lazy" />
             </div>
             <div className="signature-copy">
               <p>{pick.category}</p>
@@ -459,7 +461,7 @@ function Gallery() {
       <div className="gallery-grid">
         {photos.map((photo, index) => (
           <button type="button" className={`gallery-tile gallery-tile-${index + 1} reveal`} key={photo.src} onClick={() => setSelectedPhoto(photo)} aria-label={`View photo: ${photo.caption}`}>
-            <img src={photo.src} alt={photo.alt} loading="lazy" />
+            <img src={imageUrl(photo.src)} alt={photo.alt} loading="lazy" />
             <span className="gallery-caption">{photo.caption}<i aria-hidden="true">↗</i></span>
           </button>
         ))}
@@ -468,7 +470,7 @@ function Gallery() {
         <div className="lightbox" role="dialog" aria-modal="true" aria-label={selectedPhoto.caption} onClick={() => setSelectedPhoto(null)}>
           <button className="lightbox-close" type="button" aria-label="Close photo" onClick={() => setSelectedPhoto(null)}>×</button>
           <figure onClick={(event) => event.stopPropagation()}>
-            <img src={selectedPhoto.src} alt={selectedPhoto.alt} />
+            <img src={imageUrl(selectedPhoto.src)} alt={selectedPhoto.alt} />
             <figcaption>{selectedPhoto.caption}</figcaption>
           </figure>
         </div>
@@ -506,7 +508,7 @@ function VisitSection() {
           />
         ) : (
           <a className="map-preview-fallback" href={siteConfig.googleMaps} target="_blank" rel="noreferrer" aria-label="Open Frost & Brew location in Google Maps">
-            <img src="/images/cafe-interior.jpg" alt="" loading="lazy" />
+            <img src={imageUrl('/images/cafe-interior.jpg')} alt="" loading="lazy" />
           </a>
         )}
         <a className="map-card-note" href={siteConfig.googleMaps} target="_blank" rel="noreferrer">
